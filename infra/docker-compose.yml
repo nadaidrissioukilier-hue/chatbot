@@ -1,0 +1,61 @@
+name: entraide-mvp
+
+# MVP localhost — pas de split VM1/VM2 (tout tourne sur ce PC). Ports
+# volontairement décalés (27xxx/26xxx) pour ne pas entrer en conflit avec
+# d'autres conteneurs déjà présents sur cette machine (redis-production,
+# neo4j-production, entraide-vm2-*).
+
+services:
+  neo4j:
+    image: neo4j:5-community
+    container_name: entraide-mvp-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: "${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:?NEO4J_PASSWORD requis}"
+      NEO4J_server_memory_heap_max__size: "1500m"
+      NEO4J_PLUGINS: '["apoc"]'
+    ports:
+      - "127.0.0.1:27474:7474"
+      - "127.0.0.1:27687:7687"
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    container_name: entraide-mvp-qdrant
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:26333:6333"
+      - "127.0.0.1:26334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/localhost/6333' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+
+  redis:
+    image: redis:7-alpine
+    container_name: entraide-mvp-redis
+    restart: unless-stopped
+    command: redis-server --maxmemory 512mb --maxmemory-policy allkeys-lru
+    ports:
+      - "127.0.0.1:26379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+
+volumes:
+  neo4j_data:
+  qdrant_data:
+  redis_data:

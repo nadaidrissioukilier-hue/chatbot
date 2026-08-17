@@ -1,0 +1,32 @@
+# Secrets
+app/.env
+*.env
+!*.env.example
+
+# Modèle LLM (trop volumineux pour git, ~6.7GB) — voir README pour le télécharger
+models/*.gguf
+models/
+
+# Données volumineuses régénérables (voir notebooks/ pour les recréer)
+data/embeddings/
+
+# Environnement Python
+.venv/
+__pycache__/
+*.pyc
+
+# Logs et sauvegardes locales
+logs/
+backups/
+
+# Copie de travail redondante (deja dans frontend/assets/entraide-bg.png)
+/Screenshot*.png
+
+# Outillage local (Claude Code / agents), pas partie du projet applicatif
+.claude/
+.agents/
+skills-lock.json
+
+# Divers
+.DS_Store
+*.pyo

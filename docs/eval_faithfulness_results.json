@@ -1,0 +1,74 @@
+[
+  {
+    "key": "service_invalidite_docs_ar",
+    "query": "ما هي الوثائق المطلوبة للحصول على شهادة الإعاقة؟",
+    "intent": "service_search",
+    "language": "ar",
+    "context_sent_to_llm": "Contexte pour Entraide Nationale (Maroc):\nQuestion utilisateur: ما هي الوثائق المطلوبة للحصول على شهادة الإعاقة؟\nNombre de résultats pertinents: 10\n\nRésultats:\n\n#1 - SERVICE - النفسي الحركي\nDétail: Documents requis: شهادة الإعاقة - شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)- شهادة التسجيل في نظام التأمين الإجباري عن المرض AMO - تضامن (راميد سابقا)، مشفوعة بوثيقة التسجيل في السجل الاجتماعي الموحد - (وللمزيد من المعلومات يمكنكم ...\nInstitution(s): EPS, CPSH\nPublic cible: personnes_handicapees\nConditions: أن يكون الشخص في وضعية إعاقة - أن يكون الشخص في وضعية عوز - ان يكون الشخص مسجلا بالسجل الاجتماعي الموحد - التسجيل بإحدى المؤسسات المتخصصة التابعة للجمعيات العاملة في مجال تمدرس الأ...; أن يكون الشخص في وضعية إعاقة; أن يكون الشخص في وضعية عوز\nDocuments requis: شهادة الإعاقة - شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)- شهادة التسجيل في نظام التأمين الإجباري عن المرض AMO ...; شهادة الإعاقة; شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)\n\n#2 - SERVICE - التربية الخاصة\nDétail: Documents requis: شهادة الإعاقة - شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)- شهادة التسجيل في نظام التأمين الإجباري عن المرض AMO - تضامن (راميد سابقا)، مشفوعة بوثيقة التسجيل في السجل الاجتماعي الموحد - (وللمزيد من المعلومات يمكنكم ...\nInstitution(s): EPS, CPSH\nPublic cible: personnes_handicapees\nConditions: أن يكون الشخص في وضعية إعاقة - أن يكون الشخص في وضعية عوز - ان يكون الشخص مسجلا بالسجل الاجتماعي الموحد - التسجيل بإحدى المؤسسات المتخصصة التابعة للجمعيات العاملة في مجال تمدرس الأ...; أن يكون الشخص في وضعية إعاقة; أن يكون الشخص في وضعية عوز\nDocuments requis: شهادة الإعاقة - شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)- شهادة التسجيل في نظام التأمين الإجباري عن المرض AMO ...; شهادة الإعاقة; شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)\n\n#3 - SERVICE - الدعم والمواكبة النفسية\nDétail: Documents requis: شهادة الإعاقة - شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)- شهادة التسجيل في نظام التأمين الإجباري عن المرض AMO - تضامن (راميد سابقا)، مشفوعة بوثيقة التسجيل في السجل الاجتماعي الموحد - (وللمزيد من المعلومات يمكنكم ...\nInstitution(s): EPS, CPSH\nPublic cible: personnes_handicapees\nConditions: أن يكون الشخص في وضعية إعاقة - أن يكون الشخص في وضعية عوز - ان يكون الشخص مسجلا بالسجل الاجتماعي الموحد - التسجيل بإحدى المؤسسات المتخصصة التابعة للجمعيات العاملة في مجال تمدرس الأ...; أن يكون الشخص في وضعية إعاقة; أن يكون الشخص في وضعية عوز\nDocuments requis: شهادة الإعاقة - شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)- شهادة التسجيل في نظام التأمين الإجباري عن المرض AMO ...; شهادة الإعاقة; شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)\n\n#4 - SERVICE - العلاج الوظيفي المهني\nDétail: Documents requis: شهادة الإعاقة - شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)- شهادة التسجيل في نظام التأمين الإجباري عن المرض AMO - تضامن (راميد سابقا)، مشفوعة بوثيقة التسجيل في السجل الاجتماعي الموحد - (وللمزيد من المعلومات يمكنكم ...\nInstitution(s): EPS, CPSH\nPublic cible: personnes_handicapees\nConditions: أن يكون الشخص في وضعية إعاقة - أن يكون الشخص في وضعية عوز - ان يكون الشخص مسجلا بالسجل الاجتماعي الموحد - التسجيل بإحدى المؤسسات المتخصصة التابعة للجمعيات العاملة في مجال تمدرس الأ...; أن يكون الشخص في وضعية إعاقة; أن يكون الشخص في وضعية عوز\nDocuments requis: شهادة الإعاقة - شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)- شهادة التسجيل في نظام التأمين الإجباري عن المرض AMO ...; شهادة الإعاقة; شهادة طبية تبين صنف الإعاقة و يستتنى من ذلك الأشخاص ذوو الإعاقات التالية (الحركية/البصرية/السمعيةو/أو الصوتية)\n\n\nInstructions:\n1. Répondez dans la langue de la question (arabe ou français)\n2. Soyez concis et pratique, citez centres/conditions/documents quand disponibles\n3. Priorité aux 3 meilleurs résultats\n4. Si un résultat est marqué 'dernier recours', ne le proposer qu'en l'absence d'alternative\n5. Pas d'hallucination: uniquement les données du contexte ci-dessus",
+    "answer": "الوثائق المطلوبة للحصول على شهادة الإعاقة هي:\n\n- شهادة الإعاقة\n- شهادة طبية تبين صنف الإعاقة (استثنى ذلك الأشخاص ذوو الإعاقات الحركية/البصرية/السمعية أو الصوتية)\n- شهادة التسجيل في نظام التأمين الإجباري عن المرض AMO\n- شهادة التسجيل في السجل الاجتماعي الموحد مشفوعة بوثيقة راميد (التضامن سابقاً)\n\nهذه الوثائق يجب تقديمها عند التقديم للحصول على شهادة الإعاقة.",
+    "guardrail_valid": true,
+    "guardrail_issues": {
+      "hallucinations": [],
+      "language_errors": [],
+      "format_errors": []
+    },
+    "timing_s": {
+      "retrieval": 35.4,
+      "llm": 43.1
+    }
+  },
+  {
+    "key": "centre_creche_ar",
+    "query": "أين أجد أقرب حضانة في سلا؟",
+    "intent": "centre_search",
+    "language": "ar",
+    "context_sent_to_llm": "Contexte pour Entraide Nationale (Maroc):\nQuestion utilisateur: أين أجد أقرب حضانة في سلا؟\nNombre de résultats pertinents: 10\n\nRésultats:\n\n#1 - CENTRE - Creche Valerius\nDétail: Programme: Préscolaire. Axe: Insertion Sociale. Population ciblee: Enfants en sit. diff..\nLocalisation: LOT 18-19 ZONE INDUSTRIELLE TABRIQUET SALE, TABRIQUET (AR), Rabat-Salé-Kénitra\nInstitution(s): CRECHE\nPublic cible: Enfants en sit. diff.\n\n#2 - CENTRE - UPE sidi rahal chatii\nDétail: Activite: Creche. Creche. Capacite: 110.0. Milieu: urbain. Propriete: Commune.\nLocalisation: حي التنمية سيدي رحال الشاطئ, Sidi Rahal chatii, Casablanca-Settat\nInstitution(s): CRECHE\nPublic cible: Enfants en sit. diff.\n\n#3 - CENTRE - centre social de proximité - al maza-\nDétail: Programme: Préscolaire. Axe: Insertion Sociale. Population ciblee: Enfants en sit. diff..\nLocalisation: SECTEUR3 Hay Nahda Maza LAAYAYDA, LAYAYDA (AR), Rabat-Salé-Kénitra\nInstitution(s): CRECHE\nPublic cible: Enfants en sit. diff.\n\n#4 - CENTRE - CEF Ras el ain\nDétail: CEF Ras el ain. CEntre de RAss El Ain. Commune: RAS EL AIN (AC), Delegation: Settat, Region: Casablanca-Settat.\nLocalisation: CEntre de RAss El Ain, RAS EL AIN (AC), Casablanca-Settat\nInstitution(s): CRECHE\nPublic cible: Enfants en sit. diff.\n\n\nInstructions:\n1. Répondez dans la langue de la question (arabe ou français)\n2. Soyez concis et pratique, citez centres/conditions/documents quand disponibles\n3. Priorité aux 3 meilleurs résultats\n4. Si un résultat est marqué 'dernier recours', ne le proposer qu'en l'absence d'alternative\n5. Pas d'hallucination: uniquement les données du contexte ci-dessus",
+    "answer": "أقرب حضانات في سلا هي:\n\n1. **Creche Valerius**\n   - Localisation: LOT 18-19 ZONE INDUSTRIELLE TABRIQUET SALE, TABRIQUET (AR), Rabat-Salé-Kénitra\n\n2. **centre social de proximité - al maza-**\n   - Localisation: SECTEUR3 Hay Nahda Maza LAAYAYDA, LAYAYDA (AR), Rabat-Salé-Kénitra\n\n3. **CEF Ras el ain**\n   - Localisation: CEntre de RAss El Ain, RAS EL AIN (AC), Casablanca-Settat (mais dans la région de Settat)",
+    "guardrail_valid": true,
+    "guardrail_issues": {
+      "hallucinations": [],
+      "language_errors": [],
+      "format_errors": []
+    },
+    "timing_s": {
+      "retrieval": 5.4,
+      "llm": 75.2
+    }
+  },
+  {
+    "key": "programme_creches_fr",
+    "query": "Programme 2027 crèches sociales, quel est le budget ?",
+    "intent": "programme_2027",
+    "language": "fr",
+    "context_sent_to_llm": "Contexte pour Entraide Nationale (Maroc):\nQuestion utilisateur: Programme 2027 crèches sociales, quel est le budget ?\nNombre de résultats pertinents: 10\n\nRésultats:\n\n#1 - PROGRAMME - Programme d'aide spéciale en faveur des enfants orphelins et abandonnés\nDétail: Institutions liees: EPS, CAPE, UPE. Population cible: enfants_orphelins enfants_abandonnes.\nInstitution(s): EPS, CAPE, UPE\nPublic cible: enfants_orphelins enfants_abandonnes\nBudget programme: 22,000,000 MAD\n\n#2 - PROGRAMME - Programmes du Fonds d'appui à la protection sociale destinés aux personnes en situation de handicap\nDétail: Institutions liees: COAPH, CPSH, EPS. Population cible: personnes_handicapees.\nInstitution(s): COAPH, CPSH, EPS\nPublic cible: personnes_handicapees\nBudget programme: 30,000,000 MAD\n\n#3 - PROGRAMME - Programme de création de crèches sociales\nDétail: Institutions liees: Creche, JE. Population cible: enfants_0_3 femmes.\nInstitution(s): Creche, JE\nPublic cible: enfants_0_3 femmes\nBudget programme: 28,000,000 MAD\n\n#4 - PROGRAMME - Programme d'appui aux établissements de protection sociale\nDétail: Institutions liees: EPS. Population cible: tous.\nInstitution(s): EPS\nPublic cible: tous\nBudget programme: 35,000,000 MAD\n\n\nInstructions:\n1. Répondez dans la langue de la question (arabe ou français)\n2. Soyez concis et pratique, citez centres/conditions/documents quand disponibles\n3. Priorité aux 3 meilleurs résultats\n4. Si un résultat est marqué 'dernier recours', ne le proposer qu'en l'absence d'alternative\n5. Pas d'hallucination: uniquement les données du contexte ci-dessus",
+    "answer": "Le programme de création de crèches sociales a un budget de 28,000,000 MAD. Les institutions impliquées sont Creche et JE. La population cible comprend les enfants de 0 à 3 ans et les femmes.",
+    "guardrail_valid": true,
+    "guardrail_issues": {
+      "hallucinations": [],
+      "language_errors": [],
+      "format_errors": []
+    },
+    "timing_s": {
+      "retrieval": 8.0,
+      "llm": 43.6
+    }
+  },
+  {
+    "key": "faq_aos_conditions",
+    "query": "ما هي شروط الاستفادة من الاصطياف؟",
+    "intent": "service_search",
+    "language": "ar",
+    "context_sent_to_llm": "Contexte pour Entraide Nationale (Maroc):\nQuestion utilisateur: ما هي شروط الاستفادة من الاصطياف؟\nNombre de résultats pertinents: 10\n\nRésultats:\n\n#1 - CENTRE - centre de formation relais prison\nDétail: Programme: Formation Qualifiante. Axe: Insertion Sociale. Population ciblee: Femmes en sit. diff..\nLocalisation: مركز الاصلاح والتهديب عكاشة عين السبع, AIN-SEBAA (AR), Casablanca-Settat\nInstitution(s): CEF\nPublic cible: Femmes en sit. diff.\n\n#2 - SERVICE - الفئه المستهدفه\nDétail: Conditions: شروط الاستفاده\nInstitution(s): EPS (dernier recours)\nPublic cible: femmes\nConditions: شروط الاستفاده\nDocuments requis: الوثائق المطلوبه\n\n#3 - SERVICE - محو الأمية القطاعية\nDétail: Documents requis: بطاقة التعريف الوطنية أو عقد الازدياد + 2 صور فوتوغرافية + شهادة طبية + ظرفان متنبران يحملان عنوان الأسرة\nInstitution(s): CEF\nPublic cible: enfants\nConditions: الأطفال مابين 15 و 18 سنة المنحدرين من أسر في في وضعية الفقر (خصوصا الفتيات)\nDocuments requis: بطاقة التعريف الوطنية أو عقد الازدياد + 2 صور فوتوغرافية + شهادة طبية + ظرفان متنبران يحملان عنوان الأسرة\n\n#4 - SERVICE - المساعدات العينية (الطرد الغذائي)\nDétail: Conditions: أن يكون الشخص في وضعية إعاقة حركية (عميقة) أو بصرية (مكفوف) - التوفر على شهادة التسجيل في نظام التأمين الإجباري عن المرض تضامن (AMO) أو إجراء بحث اجتماعي من طرف التعاون الوطني | أن يكون الشخص في وضعية إعاقة حركية (عميقة) أو بصرية (مكفوف) | التوفر على شهادة التسجيل في نظام التأمين الإجبار...\nInstitution(s): EPS, COAPH\nPublic cible: personnes_handicapees\nConditions: أن يكون الشخص في وضعية إعاقة حركية (عميقة) أو بصرية (مكفوف) - التوفر على شهادة التسجيل في نظام التأمين الإجباري عن المرض تضامن (AMO) أو إجراء بحث اجتماعي من طرف التعاون الوطني; أن يكون الشخص في وضعية إعاقة حركية (عميقة) أو بصرية (مكفوف); التوفر على شهادة التسجيل في نظام التأمين الإجباري عن المرض تضامن (AMO) أو إجراء بحث اجتماعي من طرف التعاون الوطني\nDocuments requis: طلب موجه للسيد مدير التعاون الوطني - نسخة من بطاقة التعريف الوطنية أو عقد الازدياد بالنسبة للأطفال - شهادة طبية تثبث الإعاقة الحركية أو الإعاقة البصرية - تصريح بالشرف يتم تسليم الن...; طلب موجه للسيد مدير التعاون الوطني; نسخة من بطاقة التعريف الوطنية أو عقد الازدياد بالنسبة للأطفال\n\n\nInstructions:\n1. Répondez dans la langue de la question (arabe ou français)\n2. Soyez concis et pratique, citez centres/conditions/documents quand disponibles\n3. Priorité aux 3 meilleurs résultats\n4. Si un résultat est marqué 'dernier recours', ne le proposer qu'en l'absence d'alternative\n5. Pas d'hallucination: uniquement les données du contexte ci-dessus",
+    "answer": "شروط الاستفادة من الاصطياف حسب المعلومات المتاحة:\n\n- يجب أن تكون الفئة المستهدفة هو الأطفال.\n- السن المسموح به بين 15 و 18 سنة.\n- الأسر المرشحة يجب أن تكون في وضعية الفقر، خاصة الفتيات.\n\nالوثائق المطلوبة:\n- بطاقة التعريف الوطنية أو عقد الازدياد\n- 2 صور فوتوغرافية\n- شهادة طبية\n- ظرفان متنبران يحملان عنوان الأسرة",
+    "guardrail_valid": true,
+    "guardrail_issues": {
+      "hallucinations": [],
+      "language_errors": [],
+      "format_errors": []
+    },
+    "timing_s": {
+      "retrieval": 33.3,
+      "llm": 84.8
+    }
+  }
+]

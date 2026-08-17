@@ -1,0 +1,85 @@
+\section{Architecture générale}
+
+\subsection{Infrastructure à deux machines}
+
+Le système est déployé sur deux machines virtuelles aux rôles strictement séparés, conformément au \emph{Guide de Déploiement} de référence :
+
+\begin{sloppypar}
+\begin{itemize}
+\item \textbf{VM1 -- couche d'inférence.} Héberge exclusivement le serveur \texttt{llama.cpp} et le modèle Qwen2.5-7B-Instruct quantifié (\texttt{Q4\_K\_M}), exposé en HTTP compatible OpenAI. Paramètres de lancement retenus~: \texttt{-t 10 -c 8192 -ngl 0 --temp 0.3 --top-p 0.9 --repeat-penalty 1.1 -n 512 --parallel 2} -- \texttt{-ngl 0} signifiant une inférence 100\% CPU, \texttt{--parallel 2} autorisant deux générations concurrentes sur le même processus.
+\item \textbf{VM2 -- couche de stockage et d'orchestration.} Héberge Neo4j (graphe de connaissances), Qdrant (recherche vectorielle hybride), Redis (cache et, depuis la dernière itération, mémoire de session) ainsi que l'API FastAPI qui orchestre l'ensemble du pipeline applicatif décrit ci-dessous, et le widget frontend.
+\end{itemize}
+\end{sloppypar}
+
+Deux scripts d'orchestration (\texttt{scripts/start\_all.sh} et \texttt{scripts/stop\_all.sh}) pilotent le cycle de vie de la couche applicative (llama.cpp, API, serveur du widget) indépendamment des conteneurs de stockage (Neo4j/Qdrant/Redis, gérés séparément par \texttt{docker compose} avec redémarrage automatique). Ce découplage s'est révélé important en pratique~: à plusieurs reprises pendant le développement, la couche applicative s'est arrêtée entre deux sessions de travail sans que les conteneurs de stockage soient affectés, ce qui a permis un redémarrage rapide sans perte de données -- ce point est repris en section~\ref{sec:limitations} comme axe d'amélioration (absence de superviseur de processus).
+
+\subsection{Le pipeline RAG applicatif}
+
+La figure~\ref{fig:pipeline} présente le cheminement complet d'une requête utilisateur, de sa réception par l'API jusqu'à la réponse renvoyée. Cette architecture a été explicitement alignée, en cours de projet, sur un schéma cible fourni par le porteur du projet, puis affinée à chaque défaut découvert en test réel.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  node distance=7mm and 12mm,
+  box/.style={rectangle,rounded corners=2pt,draw=entradegreen,fill=entradesoft!55,
+    text width=3.1cm,align=center,minimum height=11mm,inner sep=4pt,font=\small},
+  boxwide/.style={box,text width=6.6cm},
+  arr/.style={-{Stealth[length=2mm]},draw=entradeink,thick}
+]
+\node[boxwide] (pre) {Query Preprocessor\\\footnotesize normalisation};
+\node[box,below=of pre] (calc) {Calculator\\\footnotesize court-circuit métier};
+\node[boxwide,below=of calc] (router) {Router\\\footnotesize intention + langue + entités};
+\node[box,below left=9mm and -4mm of router] (greet) {Greeting\\\footnotesize END};
+\node[boxwide,below=of router] (planner) {Planner $\to$ Executor\\\footnotesize Qdrant (dense+sparse) / Neo4j};
+\node[boxwide,below=of planner] (fusion) {Fusion \& Ranking\\\footnotesize RRF + OFFRE + population + géo};
+\node[box,below=of fusion] (rerank) {Reranker\\\footnotesize BGE-Reranker-v2-m3};
+\node[boxwide,below=of rerank] (gate) {Relevance Gate};
+\node[box,below left=9mm and -6mm of gate] (fallback) {General\\Fallback};
+\node[box,below right=9mm and -6mm of gate] (ctx) {Context\\Builder};
+\node[boxwide,below=14mm of gate] (gen) {Generator (Qwen2.5-7B via llama.cpp)};
+\node[boxwide,below=of gen] (guard) {Guardrail\\\footnotesize hallucination / langue / format};
+\node[box,below=of guard] (resp) {Response};
+\node[boxwide,below=of resp] (mem) {Memory / Cache (Redis)};
+
+\draw[arr] (pre) -- (calc);
+\draw[arr] (calc) -- (router);
+\draw[arr] (router) -- (greet);
+\draw[arr] (router) -- (planner);
+\draw[arr] (planner) -- (fusion);
+\draw[arr] (fusion) -- (rerank);
+\draw[arr] (rerank) -- (gate);
+\draw[arr] (gate) -- (fallback);
+\draw[arr] (gate) -- (ctx);
+\draw[arr] (ctx) -- (gen);
+\draw[arr] (fallback) |- (guard);
+\draw[arr] (gen) -- (guard);
+\draw[arr] (guard) -- (resp);
+\draw[arr] (resp) -- (mem);
+\end{tikzpicture}
+\caption{Pipeline RAG applicatif -- de la requête à la réponse mise en cache. La branche \emph{Greeting} (salutation détectée par le Router) court-circuite l'ensemble du pipeline de récupération et de génération pour aboutir directement à \emph{Response}, sans passer par le modèle de langage.}
+\label{fig:pipeline}
+\end{figure}
+
+Chaque étage a un rôle et des entrées/sorties précis, détaillés ci-dessous.
+
+\paragraph{Query Preprocessor.} Normalise la requête (une seule forme canonique pour deux lettres arabes visuellement proches mais distinctes -- le t\^{a} marb\^{u}ta et le h\^{a}) pour la détection du calculateur et la clé de cache -- \textbf{mais pas} pour le routage sémantique lui-même, qui reste appliqué au texte original (voir section~\ref{sec:incidents}, l'un des défauts corrigés vient précisément d'une normalisation trop agressive appliquée au mauvais endroit).
+
+\paragraph{Calculator.} Détecte une opération arithmétique simple (``combien font 145 plus 320'') et répond par logique métier directe, sans passer ni par la récupération ni par le modèle de langage -- un choix économique~: sur un modèle exécuté en CPU à quelques tokens par seconde, il est absurde de payer 60 à 100 secondes de génération pour une addition.
+
+\paragraph{Router.} Classifie l'intention (recherche de centre, de service, de FAQ, de programme 2027, question sur l'institution, question ouverte, ou simple salutation), détecte la langue et extrait les entités métier reconnues dans le texte (types de population, institutions, régions) par un ensemble de motifs lexicaux bilingues.
+
+\paragraph{Planner / Executor.} Le Planner transforme l'intention et les entités en un plan d'appel d'outils (recherche vectorielle Qdrant, expansion de graphe Neo4j, ou les deux en vagues successives) ; l'Executor l'exécute réellement. La recherche Qdrant est \emph{hybride} -- un vecteur dense (BGE-M3, 1024 dimensions, similarité cosinus) combiné à un vecteur creux (TF-IDF haché) sur la même collection nommée. L'expansion de graphe part des identifiants métier retournés par la recherche vectorielle (jamais des identifiants internes du point Qdrant) pour parcourir les relations pertinentes dans Neo4j.
+
+\paragraph{Fusion \& Ranking.} Combine les deux sources de résultats par une formule métier explicite~: $0{,}35 \times \text{RRF} + 0{,}25 \times \text{OFFRE} + 0{,}25 \times \text{population} + 0{,}15 \times \text{géographie}$, assortie de pénalités multiplicatives (0,70 pour un établissement de protection sociale proposé comme dernier recours, 0,85 quand la population cible n'est pas renseignée, 0,55 -- pénalité plus sévère -- quand la population renseignée contredit explicitement celle demandée). Ces poids ont été recalibrés en cours de projet après qu'un diagnostic sur une requête réelle a montré qu'un rang vectoriel brut trop bruité sur des requêtes arabes courtes pouvait faire dominer un résultat hors-sujet~: le signal population, déterministe et tiré directement des données, s'est révélé plus fiable que le rang vectoriel seul.
+
+\paragraph{Reranker.} Un cross-encoder (BGE-Reranker-v2-m3) réévalue sémantiquement les meilleurs candidats issus de la fusion -- non pas l'ensemble des résultats fusionnés (mesuré à environ 0,5 seconde par candidat sur ce CPU), mais un sous-ensemble déjà filtré par le score métier, ce qui réduit le temps de reranking d'un facteur proche de 3 sans perte de qualité mesurée.
+
+\paragraph{Relevance Gate.} Décide si les résultats récupérés sont réellement pertinents avant de les transmettre au modèle de langage. Ce filtre applique deux régimes distincts, affinés après deux faux-négatifs observés en test réel (détaillés en section~\ref{sec:incidents})~: pour les quatre intentions étroitement reconnues par un motif métier explicite (recherche de centre, de service, de FAQ, de programme), le motif d'activation lui-même fait foi de pertinence ; pour les deux intentions sans preuve préalable (question ouverte, question sur l'institution), un seuil strict s'applique, combinant le score du reranker et la présence d'entités métier extraites.
+
+\paragraph{Context Builder / General Fallback.} Si les résultats sont jugés pertinents, le Context Builder structure un contexte riche (jusqu'à six résultats, avec conditions, documents, budget, institutions) destiné au modèle de langage. Sinon, la branche \emph{General Fallback} autorise le modèle à répondre à partir de ses connaissances générales, mais avec un préfixe de transparence fixe (non laissé à la discrétion du modèle) indiquant explicitement que la réponse ne provient pas de la base de données de l'Entraide Nationale.
+
+\paragraph{Generator.} Qwen2.5-7B-Instruct, appelé via llama.cpp, produit la réponse à partir du contexte structuré et d'un prompt système qui interdit explicitement toute invention de condition, de document, de centre ou de programme.
+
+\paragraph{Guardrail.} Contrôle la réponse générée avant qu'elle ne parte au client~: détection d'affirmations numériques ou de codes d'institution non cités dans le contexte, ancrage thématique (recouvrement lexical avec le contexte), cohérence de langue (y compris une détection spécifique de caractères chinois parasites, voir section~\ref{sec:incidents}), et format (absence de balisage \emph{markdown}, la réponse devant rester du texte brut lisible dans le widget). En cas d'invalidation, une réponse de repli structurée est renvoyée plutôt qu'une erreur.
+
+\paragraph{Memory / Cache.} Deux niveaux de cache Redis coexistent~: un cache de contexte de récupération, et un cache de réponse finale déjà générée. Depuis la dernière évolution du projet, cette étape intègre également la mémoire conversationnelle par session, détaillée en section~\ref{sec:memoire}.

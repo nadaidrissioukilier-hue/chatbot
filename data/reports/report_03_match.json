@@ -1,0 +1,21 @@
+{
+  "relations_centre_service": {
+    "total": 24518,
+    "centres_matches": 3328,
+    "centres_sans_match": 0,
+    "moyenne_par_centre": 7.37,
+    "eps_fallback_pct": 2.9,
+    "methodes": {
+      "exact_institution": 3329,
+      "eps_fallback": 702,
+      "population_commune": 20487
+    }
+  },
+  "autres_relations": {
+    "service_population": 61,
+    "programme_institution": 13,
+    "programme_population": 8,
+    "centre_programme": 9573,
+    "faq_programme": 0
+  }
+}

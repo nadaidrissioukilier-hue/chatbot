@@ -1,0 +1,1437 @@
+[
+  {
+    "key": "centre_creche_ar",
+    "query": "أين أجد أقرب حضانة في سلا؟",
+    "intent": "centre_search",
+    "language": "ar",
+    "entities": {
+      "population_types": [],
+      "regions": [
+        "سلا"
+      ],
+      "institutions": [
+        "CRECHE"
+      ]
+    },
+    "n_results": 10,
+    "elapsed_s": 4.8,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Centre",
+        "name": "Creche Valerius",
+        "region": "Rabat-Salé-Kénitra",
+        "score": 0.45,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Centre",
+        "name": "UPE sidi rahal chatii",
+        "region": "Casablanca-Settat",
+        "score": 0.365,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Centre",
+        "name": "centre social de proximité - al maza-",
+        "region": "Rabat-Salé-Kénitra",
+        "score": 0.303,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Centre",
+        "name": "CEF Ras el ain",
+        "region": "Casablanca-Settat",
+        "score": 0.24,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Centre",
+        "name": "Ass Marocaine pour l'Education de Jeunesse section Sale - A.M.E.J",
+        "region": "Rabat-Salé-Kénitra",
+        "score": 0.128,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": false,
+        "source_graph": true
+      }
+    ]
+  },
+  {
+    "key": "service_invalidite_fr",
+    "query": "Conditions pour la certification d'invalidité",
+    "intent": "service_search",
+    "language": "fr",
+    "entities": {
+      "population_types": [],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 44.2,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Service",
+        "name": "المساعدات العينية (الطرد الغذائي)",
+        "region": null,
+        "score": 0.45,
+        "reranker_score": 0.281,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Service",
+        "name": "الأجهزة التعويضية والبديلة والسمعية والحركية",
+        "region": null,
+        "score": 0.3,
+        "reranker_score": 0.51,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Centre",
+        "name": "centre de formation relais prison",
+        "region": "Casablanca-Settat",
+        "score": 0.45,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Service",
+        "name": "المعينات التقنية",
+        "region": null,
+        "score": 0.225,
+        "reranker_score": 0.51,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "محو الأمية القطاعية",
+        "region": null,
+        "score": 0.4,
+        "reranker_score": 0.021,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": true
+      }
+    ]
+  },
+  {
+    "key": "service_invalidite_docs_ar",
+    "query": "ما هي الوثائق المطلوبة للحصول على شهادة الإعاقة؟",
+    "intent": "service_search",
+    "language": "ar",
+    "entities": {
+      "population_types": [
+        "personnes_handicapees"
+      ],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 43.2,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Service",
+        "name": "النفسي الحركي",
+        "region": null,
+        "score": 0.57,
+        "reranker_score": 0.997,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Service",
+        "name": "التربية الخاصة",
+        "region": null,
+        "score": 0.42,
+        "reranker_score": 0.997,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Service",
+        "name": "الدعم والمواكبة النفسية",
+        "region": null,
+        "score": 0.345,
+        "reranker_score": 0.997,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Service",
+        "name": "العلاج الوظيفي المهني",
+        "region": null,
+        "score": 0.329,
+        "reranker_score": 0.997,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "خدمة النقل",
+        "region": null,
+        "score": 0.27,
+        "reranker_score": 0.997,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "programme_creches_ar",
+    "query": "برنامج 2027 للحضانات الاجتماعية",
+    "intent": "programme_2027",
+    "language": "ar",
+    "entities": {
+      "population_types": [],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 9.2,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Programme",
+        "name": "Programmes du Fonds d'appui à la protection sociale destinés aux personnes en situation de handicap",
+        "region": null,
+        "score": 0.45,
+        "reranker_score": 0.004,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Programme",
+        "name": "Programme d'aide spéciale en faveur des enfants orphelins et abandonnés",
+        "region": null,
+        "score": 0.381,
+        "reranker_score": 0.017,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Programme",
+        "name": "Programme d'appui aux établissements de protection sociale",
+        "region": null,
+        "score": 0.295,
+        "reranker_score": 0.002,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Programme",
+        "name": "Programme de création de centres de jour pour personnes âgées",
+        "region": null,
+        "score": 0.248,
+        "reranker_score": 0.003,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Programme",
+        "name": "Les grands projets d'investissement",
+        "region": null,
+        "score": 0.238,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "programme_creches_fr",
+    "query": "Programme 2027 crèches sociales",
+    "intent": "programme_2027",
+    "language": "fr",
+    "entities": {
+      "population_types": [],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 6.8,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Programme",
+        "name": "Programme de création de crèches sociales",
+        "region": null,
+        "score": 0.45,
+        "reranker_score": 0.011,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Programme",
+        "name": "Programme d'aide spéciale en faveur des enfants orphelins et abandonnés",
+        "region": null,
+        "score": 0.344,
+        "reranker_score": 0.021,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Programme",
+        "name": "Programmes du Fonds d'appui à la protection sociale destinés aux personnes en situation de handicap",
+        "region": null,
+        "score": 0.274,
+        "reranker_score": 0.005,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Programme",
+        "name": "Programme d'appui aux établissements de protection sociale",
+        "region": null,
+        "score": 0.173,
+        "reranker_score": 0.004,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Programme",
+        "name": "Programme de mise à niveau des centres de formation par apprentissage",
+        "region": null,
+        "score": 0.167,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "service_mesnin_ar",
+    "query": "شروط إيواء المسنين",
+    "intent": "other",
+    "language": "ar",
+    "entities": {
+      "population_types": [
+        "personnes_agees"
+      ],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 22.6,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Service",
+        "name": "الترويض الطبي",
+        "region": null,
+        "score": 0.57,
+        "reranker_score": 0.832,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Service",
+        "name": "البرامج التحسيسية والتوعوية",
+        "region": null,
+        "score": 0.448,
+        "reranker_score": 0.832,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Service",
+        "name": "المساعدات الإنسانية والتضامنية",
+        "region": null,
+        "score": 0.32,
+        "reranker_score": 0.923,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Service",
+        "name": "الأنشطة الاجتماعية والثقافية والرياضية وترفيهية",
+        "region": null,
+        "score": 0.345,
+        "reranker_score": 0.832,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "الدعم والمواكبة النفسية",
+        "region": null,
+        "score": 0.218,
+        "reranker_score": 0.779,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "greeting",
+    "query": "Bonjour, merci beaucoup",
+    "intent": "other",
+    "language": "fr",
+    "entities": {
+      "population_types": [],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 21.9,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Service",
+        "name": "الإطعام",
+        "region": null,
+        "score": 0.45,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Centre",
+        "name": "centre sociale beni fdel",
+        "region": "Rabat-Salé-Kénitra",
+        "score": 0.3,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Service",
+        "name": "تصحيح النطق",
+        "region": null,
+        "score": 0.225,
+        "reranker_score": 0.002,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Centre",
+        "name": "centre ALMOHIT",
+        "region": "Casablanca-Settat",
+        "score": 0.225,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "البرامج التحسيسية والتوعوية",
+        "region": null,
+        "score": 0.189,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "centre_institution_geo",
+    "query": "أين أجد مركز CEF في الدار البيضاء؟",
+    "intent": "centre_search",
+    "language": "ar",
+    "entities": {
+      "population_types": [],
+      "regions": [
+        "الدار البيضاء"
+      ],
+      "institutions": [
+        "CEF"
+      ]
+    },
+    "n_results": 10,
+    "elapsed_s": 14.3,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Centre",
+        "name": "Ass Nahdat Al Hay pour l Environnement et Developement",
+        "region": "Rabat-Salé-Kénitra",
+        "score": 0.45,
+        "reranker_score": 0.022,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Centre",
+        "name": "centre sociale beni fdel",
+        "region": "Rabat-Salé-Kénitra",
+        "score": 0.45,
+        "reranker_score": 0.017,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Centre",
+        "name": "Centre INDH Sidi Moumen",
+        "region": "Casablanca-Settat",
+        "score": 0.3,
+        "reranker_score": 0.022,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Centre",
+        "name": "Complexe Socio educatif Mosquee Ennajd",
+        "region": "Casablanca-Settat",
+        "score": 0.225,
+        "reranker_score": 0.022,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Centre",
+        "name": "Club de gendarmerie féminine",
+        "region": "Casablanca-Settat",
+        "score": 0.225,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "service_handicap_broad",
+    "query": "خدمات لذوي الإعاقة",
+    "intent": "service_search",
+    "language": "ar",
+    "entities": {
+      "population_types": [
+        "personnes_handicapees"
+      ],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 35.2,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Service",
+        "name": "شهادة الإعاقة",
+        "region": null,
+        "score": 0.166,
+        "reranker_score": 0.718,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Centre",
+        "name": "centre de formation relais prison",
+        "region": "Casablanca-Settat",
+        "score": 0.45,
+        "reranker_score": 0.001,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Service",
+        "name": "محو الأمية القطاعية",
+        "region": null,
+        "score": 0.4,
+        "reranker_score": 0.002,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": true
+      },
+      {
+        "rank": 4,
+        "type": "Centre",
+        "name": "Centre d'Orientation et d'Assistance des Personnes en situation Handicap kasba Tadla",
+        "region": "Béni Mellal-Khénifra",
+        "score": 0.315,
+        "reranker_score": 0.127,
+        "is_eps": true,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "",
+        "region": "",
+        "score": 0.212,
+        "reranker_score": 0.101,
+        "is_eps": false,
+        "source_vector": false,
+        "source_graph": true
+      }
+    ]
+  },
+  {
+    "key": "faq_aos_conditions",
+    "query": "ما هي شروط الاستفادة من الاصطياف؟",
+    "intent": "service_search",
+    "language": "ar",
+    "entities": {
+      "population_types": [],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 33.2,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Centre",
+        "name": "centre de formation relais prison",
+        "region": "Casablanca-Settat",
+        "score": 0.45,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Service",
+        "name": "الفئه المستهدفه",
+        "region": null,
+        "score": 0.315,
+        "reranker_score": 0.071,
+        "is_eps": true,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Service",
+        "name": "محو الأمية القطاعية",
+        "region": null,
+        "score": 0.332,
+        "reranker_score": 0.003,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": true
+      },
+      {
+        "rank": 4,
+        "type": "Service",
+        "name": "المساعدات العينية (الطرد الغذائي)",
+        "region": null,
+        "score": 0.3,
+        "reranker_score": 0.003,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "التكوين التأهيلي",
+        "region": null,
+        "score": 0.291,
+        "reranker_score": 0.002,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": true
+      }
+    ]
+  },
+  {
+    "key": "faq_aos_confirmation",
+    "query": "كيف يمكنني تأكيد حجزي في الاصطياف؟",
+    "intent": "faq_search",
+    "language": "ar",
+    "entities": {
+      "population_types": [],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 8,
+    "elapsed_s": 3.0,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "FAQ",
+        "name": "كيف يمكنني معرفة أن حجزي قد تم قبوله بشكل نهائي؟",
+        "region": null,
+        "score": 0.383,
+        "reranker_score": 0.285,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "FAQ",
+        "name": "ما هي الوثائق التي يجب عليّ تحميلها على المنصة لتأكيد حجزي؟",
+        "region": null,
+        "score": 0.34,
+        "reranker_score": 0.018,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "FAQ",
+        "name": "ما هي المدة الزمنية المتاحة لتأكيد الحجز الأولي قبل إلغائه؟",
+        "region": null,
+        "score": 0.328,
+        "reranker_score": 0.005,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "FAQ",
+        "name": "هل يحق لي الاستفادة هذا الموسم إذا كنت قد استفدت في صيف السنة الفارطة؟",
+        "region": null,
+        "score": 0.23,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "FAQ",
+        "name": "كيف يتم احتساب المساهمة المالية بين المنخرط والجمعية؟",
+        "region": null,
+        "score": 0.187,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "centre_geo_marrakech",
+    "query": "مركز اجتماعي في مراكش",
+    "intent": "other",
+    "language": "ar",
+    "entities": {
+      "population_types": [],
+      "regions": [
+        "مراكش"
+      ],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 24.1,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Centre",
+        "name": "centre de solidarité pour les sourds et muet Marrakech",
+        "region": "Marrakech-Safi",
+        "score": 0.315,
+        "reranker_score": 0.95,
+        "is_eps": true,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Centre",
+        "name": "centre ligue braille maroc",
+        "region": "Fès-Meknès",
+        "score": 0.21,
+        "reranker_score": 0.906,
+        "is_eps": true,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Centre",
+        "name": "Centre social des personnes sans abri",
+        "region": "Marrakech-Safi",
+        "score": 0.126,
+        "reranker_score": 0.986,
+        "is_eps": true,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Centre",
+        "name": "E P SCentre Lalla Amina pour la Protection des Enfants Privés de Famille",
+        "region": "Marrakech-Safi",
+        "score": 0.158,
+        "reranker_score": 0.784,
+        "is_eps": true,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Centre",
+        "name": "centre de formation relais prison",
+        "region": "Casablanca-Settat",
+        "score": 0.45,
+        "reranker_score": 0.001,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "service_enfants_difficile",
+    "query": "خدمات الأطفال في وضعية صعبة",
+    "intent": "service_search",
+    "language": "ar",
+    "entities": {
+      "population_types": [
+        "enfants"
+      ],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 31.1,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Service",
+        "name": "المساعدة الاجتماعية (الاستماع والإرشاد والوساطة والتوجيه والمواكبة)",
+        "region": null,
+        "score": 0.57,
+        "reranker_score": 0.921,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Service",
+        "name": "الدعم والمواكبة النفسية",
+        "region": null,
+        "score": 0.42,
+        "reranker_score": 0.921,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Centre",
+        "name": "Centre social de qualification des enfants en situation difficile",
+        "region": "L'Oriental",
+        "score": 0.37,
+        "reranker_score": 0.809,
+        "is_eps": false,
+        "source_vector": false,
+        "source_graph": true
+      },
+      {
+        "rank": 4,
+        "type": "Service",
+        "name": "الأنشطة التربوية والثقافية والرياضية",
+        "region": null,
+        "score": 0.345,
+        "reranker_score": 0.841,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "محو الأمية القطاعية",
+        "region": null,
+        "score": 0.52,
+        "reranker_score": 0.373,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": true
+      }
+    ]
+  },
+  {
+    "key": "programme_budget_fr",
+    "query": "budget du programme formation professionnelle",
+    "intent": "programme_2027",
+    "language": "fr",
+    "entities": {
+      "population_types": [],
+      "regions": [
+        "fes"
+      ],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 7.6,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Programme",
+        "name": "Programmes du Fonds d'appui à la protection sociale destinés aux personnes en situation de handicap",
+        "region": null,
+        "score": 0.45,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Programme",
+        "name": "Programme d'aide spéciale en faveur des enfants orphelins et abandonnés",
+        "region": null,
+        "score": 0.443,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Programme",
+        "name": "Programme d'appui aux établissements de protection sociale",
+        "region": null,
+        "score": 0.388,
+        "reranker_score": 0.001,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Programme",
+        "name": "Programme de création de centres de jour pour personnes âgées",
+        "region": null,
+        "score": 0.321,
+        "reranker_score": 0.001,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Programme",
+        "name": "Programme de mise à niveau des centres de formation par apprentissage",
+        "region": null,
+        "score": 0.315,
+        "reranker_score": 0.001,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "institution_coaph",
+    "query": "COAPH شروط",
+    "intent": "other",
+    "language": "ar",
+    "entities": {
+      "population_types": [],
+      "regions": [],
+      "institutions": [
+        "COAPH"
+      ]
+    },
+    "n_results": 7,
+    "elapsed_s": 4.1,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Service",
+        "name": "المعينات التقنية",
+        "region": null,
+        "score": 0.45,
+        "reranker_score": 0.012,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Service",
+        "name": "القوقعات الالكترونية",
+        "region": null,
+        "score": 0.402,
+        "reranker_score": 0.001,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Service",
+        "name": "الأنشطة المدرة للدخل",
+        "region": null,
+        "score": 0.368,
+        "reranker_score": 0.005,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Service",
+        "name": "الأجهزة التعويضية والبديلة والسمعية والحركية",
+        "region": null,
+        "score": 0.352,
+        "reranker_score": 0.008,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "شهادة الإعاقة",
+        "region": null,
+        "score": 0.315,
+        "reranker_score": 0.001,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "centre_eps_explicit",
+    "query": "Je cherche un centre EPS",
+    "intent": "other",
+    "language": "fr",
+    "entities": {
+      "population_types": [],
+      "regions": [],
+      "institutions": [
+        "JE",
+        "EPS"
+      ]
+    },
+    "n_results": 10,
+    "elapsed_s": 24.5,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Service",
+        "name": "المساعدة الاجتماعية (الاستماع والتشخيص والإرشاد والوساطة والتوجيه والمواكبة)",
+        "region": null,
+        "score": 0.45,
+        "reranker_score": 0.388,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Service",
+        "name": "الدعم والمواكبة الاجتماعية والتربوية والطبية والنفسية والقانونية",
+        "region": null,
+        "score": 0.45,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Service",
+        "name": "العلاجات الشبه الطبية",
+        "region": null,
+        "score": 0.3,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Service",
+        "name": "التربية الخاصة",
+        "region": null,
+        "score": 0.129,
+        "reranker_score": 0.276,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "الترويض الحركي",
+        "region": null,
+        "score": 0.129,
+        "reranker_score": 0.276,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "service_femmes",
+    "query": "نساء في وضعية صعبة مساعدة",
+    "intent": "service_search",
+    "language": "ar",
+    "entities": {
+      "population_types": [
+        "femmes"
+      ],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 31.1,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Service",
+        "name": "التمكين الاقتصادي",
+        "region": null,
+        "score": 0.345,
+        "reranker_score": 0.933,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Service",
+        "name": "التكوين بالتدرج المهني",
+        "region": null,
+        "score": 0.295,
+        "reranker_score": 0.867,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Service",
+        "name": "النساء في وضعيه صعبه",
+        "region": null,
+        "score": 0.21,
+        "reranker_score": 0.867,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Centre",
+        "name": "centre de formation relais prison",
+        "region": "Casablanca-Settat",
+        "score": 0.57,
+        "reranker_score": 0.016,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "التوعيه والتحسيس",
+        "region": null,
+        "score": 0.189,
+        "reranker_score": 0.867,
+        "is_eps": true,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "centre_geo_fes",
+    "query": "جمعية رعاية المسنين بفاس",
+    "intent": "other",
+    "language": "ar",
+    "entities": {
+      "population_types": [
+        "personnes_agees"
+      ],
+      "regions": [
+        "فاس"
+      ],
+      "institutions": []
+    },
+    "n_results": 10,
+    "elapsed_s": 24.0,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Centre",
+        "name": "Centra d’accueil des personnes âgées Al massira",
+        "region": "Fès-Meknès",
+        "score": 0.315,
+        "reranker_score": 0.425,
+        "is_eps": true,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "Centre",
+        "name": "centre de formation relais prison",
+        "region": "Casablanca-Settat",
+        "score": 0.45,
+        "reranker_score": 0.001,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Service",
+        "name": "البرامج التحسيسية والتوعوية",
+        "region": null,
+        "score": 0.261,
+        "reranker_score": 0.055,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "Service",
+        "name": "الأنشطة الاجتماعية والثقافية والرياضية وترفيهية",
+        "region": null,
+        "score": 0.173,
+        "reranker_score": 0.172,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "Service",
+        "name": "الترويض الطبي",
+        "region": null,
+        "score": 0.22,
+        "reranker_score": 0.055,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "faq_aos_documents_fr",
+    "query": "quels documents pour l'AOS",
+    "intent": "faq_search",
+    "language": "fr",
+    "entities": {
+      "population_types": [],
+      "regions": [],
+      "institutions": []
+    },
+    "n_results": 8,
+    "elapsed_s": 2.7,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "FAQ",
+        "name": "ما هي الوثائق التي يجب عليّ تحميلها على المنصة لتأكيد حجزي؟",
+        "region": null,
+        "score": 0.383,
+        "reranker_score": 0.001,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 2,
+        "type": "FAQ",
+        "name": "ما هي المدة الزمنية المتاحة لتأكيد الحجز الأولي قبل إلغائه؟",
+        "region": null,
+        "score": 0.295,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "FAQ",
+        "name": "كيف يمكنني معرفة أن حجزي قد تم قبوله بشكل نهائي؟",
+        "region": null,
+        "score": 0.229,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 4,
+        "type": "FAQ",
+        "name": "متى يتم إطلاق بوابة الحجز والتسجيل للمرة الثانية؟",
+        "region": null,
+        "score": 0.21,
+        "reranker_score": 0.001,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 5,
+        "type": "FAQ",
+        "name": "ما هي البيانات الأساسية التي أحتاجها للقيام بالحجز الأولي على المنصة؟",
+        "region": null,
+        "score": 0.157,
+        "reranker_score": 0.002,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  },
+  {
+    "key": "mixed_lang",
+    "query": "Je cherche خدمة for أطفال",
+    "intent": "service_search",
+    "language": "ar",
+    "entities": {
+      "population_types": [
+        "enfants"
+      ],
+      "regions": [],
+      "institutions": [
+        "JE"
+      ]
+    },
+    "n_results": 10,
+    "elapsed_s": 19.8,
+    "top_results": [
+      {
+        "rank": 1,
+        "type": "Centre",
+        "name": "JE Essalam",
+        "region": "Casablanca-Settat",
+        "score": 0.707,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": true
+      },
+      {
+        "rank": 2,
+        "type": "Centre",
+        "name": "J.E Amtghare",
+        "region": "Fès-Meknès",
+        "score": 0.57,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      },
+      {
+        "rank": 3,
+        "type": "Centre",
+        "name": "JE Ain Chair",
+        "region": "L'Oriental",
+        "score": 0.493,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": true
+      },
+      {
+        "rank": 4,
+        "type": "Service",
+        "name": "التعليم الأولي",
+        "region": null,
+        "score": 0.431,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": true
+      },
+      {
+        "rank": 5,
+        "type": "Centre",
+        "name": "CEF El JEBHA",
+        "region": "Tanger-Tétouan-Al Hoceïma",
+        "score": 0.39,
+        "reranker_score": 0.0,
+        "is_eps": false,
+        "source_vector": true,
+        "source_graph": false
+      }
+    ]
+  }
+]

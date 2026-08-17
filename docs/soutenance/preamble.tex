@@ -1,0 +1,69 @@
+% Préambule commun -- thème repris de ENTRADE_MA_Guide_Deploiement_GraphRAG.pdf
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{mathpazo}
+\usepackage[a4paper,margin=2.5cm,top=3cm,bottom=3cm]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage[most]{tcolorbox}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds}
+\usepackage[colorlinks=true,linkcolor=entradeink,urlcolor=entradeink,citecolor=entradeink]{hyperref}
+
+% --- Couleurs du thème (identiques aux variables CSS du widget / au guide PDF) ---
+\definecolor{entradegreen}{HTML}{12684F}
+\definecolor{entradeink}{HTML}{0B4536}
+\definecolor{entradesoft}{HTML}{DCEAE3}
+\definecolor{entradegrey}{HTML}{5B6660}
+
+\hypersetup{colorlinks=true,linkcolor=entradeink,urlcolor=entradeink,citecolor=entradeink,pdftitle={Rapport de Soutenance -- ENTRADE.MA GraphRAG},pdfauthor={Entraide Nationale du Maroc}}
+
+% --- Titres de section colorés, style guide ---
+\titleformat{\section}{\normalfont\Large\bfseries\color{entradeink}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{entradegreen}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\color{entradegreen}}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.1em}{0.6em}
+
+% --- Table des matières colorée, style guide (entrées grasses, pointillés) ---
+\renewcommand{\cftsecfont}{\bfseries\color{entradeink}}
+\renewcommand{\cftsecpagefont}{\color{entradeink}}
+\renewcommand{\cftsubsecfont}{\color{black}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% --- En-têtes / pieds de page ---
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{entradesoft}\leaders\hrule height \headrulewidth\hfill}}
+\fancyhead[L]{\small\color{entradegrey}ENTRADE.MA -- Rapport de Soutenance}
+\fancyhead[R]{\small\color{entradegrey}\leftmark}
+\fancyfoot[C]{\small\color{entradegrey}\thepage}
+
+% --- Boîte "problème" (Symptôme / Diagnostic / Solution / Justification / Vérification) ---
+\newtcolorbox{probbox}[1]{
+  colback=entradesoft!45,colframe=entradegreen,fonttitle=\bfseries,
+  title=#1,coltitle=white,coltitle=white,colbacktitle=entradegreen,
+  boxrule=0.9pt,arc=2mm,left=7pt,right=7pt,top=5pt,bottom=5pt,
+  breakable
+}
+
+% --- Boîte "périmètre" pour la page de garde ---
+\newtcolorbox{scopebox}{
+  colback=entradesoft!35,colframe=entradegreen!70,boxrule=0.8pt,arc=2mm,
+  left=10pt,right=10pt,top=8pt,bottom=8pt,width=\textwidth
+}
+
+\newcommand{\keyfact}[2]{\textbf{\color{entradeink}#1} & #2 \\}
+
+\setlist[itemize]{leftmargin=1.4em,itemsep=2pt,topsep=4pt}
+\setlist[enumerate]{leftmargin=1.6em,itemsep=2pt,topsep=4pt}

@@ -1,0 +1,52 @@
+\section{Historique détaillé des incidents et de leurs résolutions}
+\label{sec:incidents}
+
+Cette section constitue le coeur technique du présent rapport. Chaque incident décrit ci-dessous a été découvert par un test réel (jamais anticipé sur le papier), diagnostiqué par inspection directe des données ou du comportement du système, corrigé, puis re-vérifié par un nouveau test réel avant d'être considéré résolu. Cette discipline -- ne jamais corriger sur la base d'une supposition, toujours vérifier sur des données réelles avant et après -- a été appliquée de façon constante tout au long du projet.
+
+\begin{probbox}{Incident -- Cache de réponse Redis écrit mais jamais relu}
+\textbf{Symptôme observé.} Une question déjà posée à l'identique redéclenchait systématiquement une génération complète du modèle de langage (60 à 160 secondes), alors qu'un mécanisme de cache existait déjà dans le code.
+
+\textbf{Diagnostic.} Inspection du code de l'API~: la fonction \texttt{cache.set(...)} était bien appelée à quatre endroits différents après chaque génération de réponse, mais aucune lecture correspondante (\texttt{cache.get(...)}) n'existait avant de lancer une nouvelle génération. Le cache accumulait des entrées sans jamais être consulté -- un cache en écriture seule.
+
+\textbf{Solution appliquée.} Ajout d'une vérification \texttt{cache.get(normalized\_query, query\_type="answer")} au tout début des points d'entrée \texttt{/chat} et \texttt{/chat/stream}, avant même le calculateur métier. Toutes les écritures de cache ont été unifiées pour stocker un objet structuré cohérent (réponse, langue, intention, sources) sous une clé simplifiée, identique entre écriture et lecture.
+
+\textbf{Justification.} Le coût de cette vérification est négligeable (une lecture Redis) comparé au coût d'une génération complète sur ce CPU~; il n'y avait aucune raison de ne pas la faire systématiquement, y compris avant le calculateur.
+
+\textbf{Vérification.} Rejouer la même question deux fois de suite~: la seconde réponse est désormais immédiate (temps de récupération et de génération à zéro), avec un contenu identique à la première.
+\end{probbox}
+
+\begin{probbox}{Incident -- Filtre de pertinence structurellement défaillant pour les questions ouvertes}
+\textbf{Symptôme observé.} Une question clairement hors du domaine de l'Entraide Nationale (``quelle est la capitale du Japon ?'') obtenait malgré tout dix résultats de recherche vectorielle, avec un score final atteignant 0,54 -- suffisant pour être présenté comme une donnée pertinente de la base.
+
+\textbf{Diagnostic.} Le filtre de pertinence pour l'intention \emph{question ouverte} s'appuyait sur la condition \texttt{result\_count == 0}. Or une recherche vectorielle non filtrée par type d'entité renvoie par construction toujours les \emph{plus proches voisins}, même sans rapport réel avec la question~: cette condition ne pouvait structurellement jamais être vraie.
+
+\textbf{Solution appliquée.} Remplacement du critère par un seuil sur le score du reranker (cross-encoder), mesuré à 0,94--0,99 sur de vraies correspondances contre 0,0 sur le cas ``capitale du Japon'' -- une marge large et fiable. Ce seuil a ensuite été affiné (voir l'incident suivant) après deux faux-négatifs découverts en généralisant ce filtre à d'autres intentions.
+
+\textbf{Justification.} Contrairement au nombre de résultats, le score du reranker mesure une correspondance sémantique réelle entre la question et chaque passage candidat~: c'est le seul signal disponible qui discrimine correctement une question hors-domaine d'une question pertinente sans résultat vectoriel filtré.
+
+\textbf{Vérification.} La question sur la capitale du Japon obtient désormais une réponse de connaissance générale avec mention explicite qu'elle ne provient pas de la base de données, tandis que des questions pertinentes réelles continuent d'obtenir une réponse ancrée sur le contexte.
+\end{probbox}
+
+\begin{probbox}{Incident -- Généralisation du filtre de pertinence trop agressive}
+\textbf{Symptôme observé.} Après avoir étendu le filtre de pertinence strict (score du reranker) à toutes les intentions de domaine, deux questions pourtant légitimes ont été rejetées à tort~: une recherche de crèche à Salé et une question FAQ sur l'aide aux oeuvres sociales obtenaient toutes deux un score de reranker de 0,0, identique au cas hors-domaine.
+
+\textbf{Diagnostic.} Le texte indexé pour les centres est en grande partie une adresse administrative en français/latin~; face à une question posée en arabe, la correspondance cross-linguale du reranker s'effondre même sur un résultat pertinent. Le score du reranker seul n'est donc pas un signal fiable pour ce type de contenu.
+
+\textbf{Solution appliquée.} Le filtre de pertinence strict n'est finalement conservé que pour les deux intentions qui ne bénéficient d'aucune preuve de pertinence préalable (\emph{question ouverte}, \emph{question sur l'institution}). Pour les quatre intentions étroitement reconnues par un motif métier explicite (recherche de centre, de service, de FAQ, de programme), le motif d'activation lui-même fait foi -- le garde-fou de sécurité restant, dans ce cas, le contrôle de cohérence appliqué à la réponse générée plutôt qu'un filtre en amont.
+
+\textbf{Justification.} Un motif lexical de domaine (par exemple la présence du mot ``conditions'' associé à un code d'institution reconnu) constitue déjà une preuve de pertinence suffisante et plus fiable, pour ces intentions, que le score sémantique d'un cross-encoder pénalisé par un décalage de langue entre la question et le texte indexé.
+
+\textbf{Vérification.} Les deux cas régressés (crèche à Salé, FAQ sur l'aide aux oeuvres sociales) obtiennent de nouveau une réponse ancrée sur le contexte réel, sans réintroduire le faux-positif initial sur la question hors-domaine.
+\end{probbox}
+
+\begin{probbox}{Incident -- Couverture Centre$\leftrightarrow$Service manquante pour deux catégories de population}
+\textbf{Symptôme observé.} Un audit exhaustif de la couverture des données (comparaison systématique du contenu de Neo4j/Qdrant avec les fichiers sources) a révélé une couverture de 0\% des relations Centre$\to$Service pour les catégories ``personnes âgées'' et ``personnes en situation de handicap''~: aucun centre de ces catégories n'était relié à ses services alors que les données sources les décrivaient bien.
+
+\textbf{Diagnostic.} Le champ \texttt{personnes\_cibles} des centres normalisés ne contient, dans les données sources, que cinq valeurs distinctes, toutes des libellés français \emph{abrégés} (par exemple \texttt{"Pers. en sit . hand."}, \texttt{"Pers. âgés en sit. diff."}) qui ne correspondaient à aucun des motifs de correspondance génériques utilisés par le carnet \texttt{03\_Match} (lesquels cherchaient soit le code de catégorie, soit un libellé complet en arabe ou en français). Une fois ce premier correctif appliqué, un second défaut est apparu immédiatement~: lorsque des centaines de centres obtenaient exactement le même score de correspondance (0,75), le tri stable de Python sélectionnait systématiquement les mêmes premiers services par ordre d'apparition dans le fichier, privant durablement les services suivants de toute correspondance.
+
+\textbf{Solution appliquée.} Deux corrections successives, appliquées en amont dans les fichiers intermédiaires puis rejouées à travers le pipeline complet (conformément à la règle d'idempotence du carnet \texttt{05}, section précédente)~: d'abord une table de correspondance explicite entre les cinq libellés abrégés et les catégories de population canoniques ; ensuite un départage déterministe par hachage (couple centre-service) dans le tri des candidats à score égal, pour que chaque service ait une chance réelle d'être apparié plutôt que de dépendre de son ordre d'apparition dans le fichier.
+
+\textbf{Justification.} Une table de correspondance explicite est la solution la plus directe et la plus vérifiable pour un ensemble fermé et connu de cinq valeurs~; le départage par hachage garantit une répartition reproductible et indépendante de l'ordre du fichier source, sans favoriser arbitrairement les premières entrées.
+
+\textbf{Vérification.} Après rechargement complet du graphe, le nombre de relations Centre$\to$Service est passé de 21044 à 24518, avec zéro service orphelin (0 service sans aucun centre associé), vérifié par une requête de comptage exhaustive sur le graphe rechargé.
+\end{probbox}

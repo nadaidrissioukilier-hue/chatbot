@@ -1,0 +1,22 @@
+{
+  "services": {
+    "total": 61,
+    "avec_conditions": 61,
+    "avec_documents": 61,
+    "eps_fallback_pct": 19.7,
+    "manifeste_annonce": 58
+  },
+  "centres": {
+    "lignes_lues": 4987,
+    "valides": 4504,
+    "invalides": 483,
+    "taux_bruit_pct": 9.7,
+    "uniques": 3328
+  },
+  "programmes_2027": {
+    "total": 7
+  },
+  "faq_aos": {
+    "total": 8
+  }
+}

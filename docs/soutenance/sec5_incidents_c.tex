@@ -1,0 +1,40 @@
+\subsection{Mémoire conversationnelle}
+\label{sec:memoire}
+
+\begin{probbox}{Incident -- Perte totale de contexte sur une question de suivi elliptique}
+\textbf{Symptôme observé.} Une première question sur la rééducation motrice pour les personnes en situation de handicap, posée via les centres CPSH (centres de promotion sociale des handicapés), obtenait une bonne réponse, correctement ancrée sur le contexte. La question de suivi, formulée de façon elliptique (\emph{``et quelles sont les conditions et les documents requis ?''}, sans reformuler le sujet), obtenait une réponse portant sur des conditions de catégories de service totalement différentes -- le système avait entièrement perdu le fil de la conversation.
+
+\textbf{Diagnostic.} Chaque requête était traitée de façon strictement indépendante~: aucune information sur les tours précédents de la même session n'était conservée ni transmise au pipeline de récupération. Une question de suivi courte, sans entité métier propre (aucune population, institution ou région mentionnée explicitement), repartait donc sur une recherche vectorielle générique déconnectée du sujet réel.
+
+\textbf{Solution appliquée.} Six éléments complémentaires, conçus ensemble et validés par un plan présenté et approuvé avant implémentation~:
+\begin{enumerate}
+\item Le widget génère un identifiant de session (UUID) persisté en \texttt{localStorage} du navigateur, transmis à chaque appel de conversation -- stable sur toute la visite, y compris après un rafraîchissement de page.
+\item Un nouveau module (\texttt{session\_memory.py}) tient, côté Redis, un historique glissant par session (jusqu'à quatre tours, expiration glissante de trente minutes), chaque tour enregistrant la question, l'intention détectée, les entités extraites et un extrait de la réponse.
+\item Une heuristique de détection de suivi (question courte, huit mots ou moins, et absence de toute entité propre extraite) déclenche une fusion de la requête actuelle avec celle du tour précédent pour la seule étape de récupération -- la question originale reste seule utilisée pour l'affichage et pour le prompt final envoyé au modèle.
+\item Les entités du tour précédent sont héritées quand le tour actuel n'en extrait aucune (par exemple, la population ``personnes en situation de handicap'' identifiée au premier tour reste active pour la question de suivi).
+\item Un court bloc d'historique (les deux derniers tours) est injecté dans le prompt envoyé au modèle de langage, pour que la génération elle-même reste consciente du fil de la conversation.
+\item La clé de cache de réponse devient sensible à la session pour les tours identifiés comme des suivis, afin d'éviter qu'une question de suivi générique (``et quels documents ?'') ne retourne, via le cache partagé, la réponse d'une autre session portant sur un sujet totalement différent.
+\end{enumerate}
+
+\textbf{Justification.} Cette conception distingue délibérément deux notions~: ``ce qui est cherché'' (la requête enrichie, utilisée uniquement pour orienter la récupération) et ``ce à quoi il faut répondre'' (la question originale de l'utilisateur, seule montrée au modèle comme instruction finale). Cette séparation évite qu'une fusion de contexte ne transforme silencieusement la question posée par l'utilisateur.
+
+\textbf{Vérification.} Le scénario exact ayant révélé le défaut a été rejoué de bout en bout après implémentation, avec un identifiant de session fixe~: la question de suivi reste désormais centrée sur la rééducation motrice et les centres CPSH, avec des sources cohérentes avec le premier tour. Le mécanisme a été vérifié une seconde fois sur un sujet entièrement différent (formation professionnelle pour les femmes en situation difficile), confirmant que le comportement se généralise~: l'inspection directe de la clé Redis de session a montré l'héritage correct de l'entité de population entre les deux tours dans les deux cas.
+\end{probbox}
+
+\subsection{Comparaison de modèles (Qwen2.5-7B contre Gemma-3-4B)}
+
+Face à la latence importante des réponses ancrées (60 à plus de 300 secondes selon la charge du CPU partagé), un test comparatif a été mené entre le modèle de production (Qwen2.5-7B-Instruct) et une alternative plus légère (Gemma-3-4B-it), sur un même contexte réel et un même prompt, chacun exposé sur un port distinct pour ne jamais interrompre le service en production. Le résultat mesuré~: un débit d'environ 3,64 tokens par seconde pour Gemma-3-4B contre environ 2,00 pour Qwen2.5-7B sur le même test -- un gain de l'ordre de 1,8 fois -- pour une qualité de réponse ancrée jugée comparable sur l'exemple testé. La décision, explicitement prise par le porteur du projet, a été de conserver Qwen2.5-7B en production pour le moment~: ce test reste documenté comme une option de repli si la latence devenait le facteur limitant principal de l'expérience utilisateur (voir recommandations, section~\ref{sec:limitations}).
+
+\subsection{Réponse de repli inutilisable pour les foires aux questions et les programmes}
+
+\begin{probbox}{Incident -- La réponse de repli du garde-fou n'affichait aucun contenu réel pour les FAQ et les programmes}
+\textbf{Symptôme observé.} Sur un jeu de quinze questions diverses représentatives de formulations citoyennes réelles (registre formel et familier, arabe et français, questions directes et indirectes), trois questions -- portant sur les conditions de l'aide aux oeuvres sociales, sur le budget du programme de création de crèches sociales 2027, et sur le budget du programme des centres de jour pour personnes âgées -- ont reçu, au lieu d'une réponse, une simple liste de titres de FAQ ou de programmes répétés, sans jamais citer le contenu réel ni le montant du budget, alors que ces informations étaient bien présentes dans le contexte récupéré (28 millions de MAD pour les crèches, 18 millions de MAD pour les centres de jour, vérifiés directement dans Neo4j).
+
+\textbf{Diagnostic.} Ces trois questions avaient déclenché le mécanisme de repli du garde-fou (la réponse générée par le modèle avait été jugée invalide et remplacée par un résumé structuré du contexte brut). Or la fonction de repli ne lisait que les champs propres aux résultats de type Centre (adresse, conditions) -- jamais le champ de texte détaillé (qui, pour une FAQ, contient la question \emph{et} la réponse concaténées) ni le champ budget (propre aux programmes). Un second défaut, plus discret, a été relevé au passage~: l'en-tête de cette réponse de repli était codé en dur en bilingue arabe/français, y compris pour une question posée entièrement en français.
+
+\textbf{Solution appliquée.} La fonction de repli affiche désormais le contenu textuel réel et le budget, quand ils existent, pour chaque résultat listé, en plus des champs déjà couverts (adresse, conditions, documents) -- et son en-tête est désormais choisi selon la langue de la question plutôt que codé en dur.
+
+\textbf{Justification.} Le champ de texte détaillé et le champ budget étaient déjà extraits et disponibles dans la structure de contexte (calculés par le \emph{Context Builder}, section~\ref{fig:pipeline}) -- il ne s'agissait pas d'aller chercher une nouvelle donnée, mais de cesser d'ignorer une donnée déjà présente. Localiser l'en-tête selon la langue de la question est cohérent avec l'exigence de bilinguisme réel énoncée en introduction.
+
+\textbf{Vérification.} Vérification en deux temps~: un test unitaire direct de la fonction corrigée sur un contexte synthétique contenant un programme (avec budget) et une FAQ, confirmant l'affichage du texte et du budget avec l'en-tête dans la bonne langue ; puis un rejeu réel des trois questions originales, qui citent désormais les montants exacts de 28, 35 et 18 millions de MAD lorsque le mécanisme de repli se déclenche à nouveau.
+\end{probbox}

@@ -1,0 +1,40 @@
+\begin{titlepage}
+\centering
+\vspace*{0.6cm}
+
+{\large\color{entradegrey} Entraide Nationale du Maroc}\\[0.25cm]
+{\color{entradegrey}\rule{6cm}{0.4pt}}\\[0.8cm]
+
+\begin{tcolorbox}[colback=entradegreen,colframe=entradegreen,arc=1.5mm,
+  boxrule=0pt,width=6.2cm,halign=center,valign=center,height=1.3cm]
+  {\Large\bfseries\color{white}ENTRADE.MA}
+\end{tcolorbox}
+
+\vspace{1.0cm}
+{\Huge\bfseries\color{entradeink} Rapport de Soutenance\\[0.3cm] Chatbot GraphRAG}\\[0.6cm]
+{\Large\itshape\color{entradegreen} Conception, mise en production et amélioration continue \\ d'un assistant conversationnel bilingue (AR/FR)}\\[0.4cm]
+{\itshape\color{entradegrey} Pipeline, architecture, incidents réels et solutions -- de la première ingestion de données à la mémoire conversationnelle}
+
+\vspace{0.9cm}
+\begin{scopebox}
+\centering
+\textbf{\color{entradeink}Périmètre du document}\\[0.35em]
+{\small Architecture système à deux VMs (inférence CPU + stockage/orchestration) \textbullet{} Pipeline d'ingestion et de graphe de connaissances (Neo4j/Qdrant) \textbullet{} Pipeline RAG applicatif complet (Router, Planner, Fusion, Reranking, Guardrail) \textbullet{} Historique détaillé des incidents rencontrés et de leurs corrections \textbullet{} Mémoire conversationnelle \textbullet{} Méthodologie de test et de validation \textbullet{} Limitations connues et recommandations}
+\end{scopebox}
+
+\vspace{0.8cm}
+\begin{center}
+\begin{tabular}{@{}p{3.6cm}p{10.5cm}@{}}
+\keyfact{Projet}{ENTRADE.MA -- Assistant GraphRAG pour l'Entraide Nationale}
+\keyfact{Modèle LLM}{Qwen2.5-7B-Instruct Q4\_K\_M (llama.cpp, inférence CPU)}
+\keyfact{Embeddings}{BGE-M3 (dense 1024D) + BGE-Reranker-v2-m3 (cross-encoder)}
+\keyfact{Bases}{Neo4j (graphe métier) \textbullet{} Qdrant (vectoriel hybride) \textbullet{} Redis (cache \& mémoire de session)}
+\keyfact{API}{FastAPI -- pipeline Router / Planner / Executor / Fusion / Reranker / Guardrail}
+\end{tabular}
+\end{center}
+
+\vfill
+{\small\color{entradegrey} Document technique -- Rapport de soutenance de projet}\\
+{\small\color{entradegrey} \today}
+
+\end{titlepage}

@@ -1,0 +1,47 @@
+\begin{probbox}{Incident -- Ancrage géographique insuffisant}
+\textbf{Symptôme observé.} Une question mentionnant explicitement une ville (``je cherche un centre... j'habite à Rabat'') ne faisait remonter qu'un seul centre réellement situé dans la bonne région, le reste des résultats étant dispersé ailleurs sur le territoire.
+
+\textbf{Diagnostic.} Deux causes distinctes, découvertes successivement. D'abord, une formulation comme ``je cherche un centre...'' en arabe ne correspondait à aucun motif de l'intention \emph{recherche de centre} et retombait sur \emph{question ouverte}, dont le plan d'outils ne prévoit aucune expansion de graphe~: l'entité région pourtant correctement extraite ne se traduisait donc par aucun signal géographique. Une fois ce premier motif ajouté, le mécanisme d'expansion géographique existant restait indirect~: il partait du voisinage d'un centre déjà trouvé par la recherche vectorielle, et ratait donc la bonne région si aucun résultat vectoriel initial ne s'y trouvait déjà.
+
+\textbf{Solution appliquée.} Ajout des motifs d'intention manquants, puis construction d'un mécanisme d'ancrage géographique \emph{direct}, indépendant du plan d'outils de l'intention et de ce que la recherche vectorielle a trouvé en premier~: un résolveur (\texttt{geo\_resolver.py}) associe les variantes arabes et françaises des noms de ville aux régions canoniques du graphe, et une nouvelle méthode (\texttt{expand\_by\_region}) interroge directement Neo4j pour tous les centres de cette région exacte, injectés comme candidats supplémentaires avec un signal géographique fort. Un correctif de suivi a ensuite ajouté un filtrage par type de population sur cette expansion~: la première version faisait en effet remonter n'importe quel centre de la région sans tenir compte de la population ciblée par la question (par exemple un centre de jeunesse pour une question sur les personnes âgées).
+
+\textbf{Justification.} L'ancrage direct par nom de région exact, plutôt que par voisinage d'un résultat vectoriel préexistant, est la seule approche qui garantit qu'une région correctement identifiée dans la question se traduise systématiquement en candidats de cette région, indépendamment de la qualité du classement vectoriel initial.
+
+\textbf{Vérification.} Rejeu de la question originale et de variantes~: les centres remontés appartiennent désormais à la bonne région, triés en priorité selon la correspondance de population.
+\end{probbox}
+
+\begin{probbox}{Incident -- Fuite de caractères chinois dans les réponses (artefact du modèle)}
+\textbf{Symptôme observé.} Deux réponses par ailleurs correctes en arabe contenaient des fragments de caractères chinois insérés au milieu ou en fin de texte (par exemple un en-tête de section ou une phrase de clôture), observés indépendamment sur deux questions distinctes lors des tests de bout en bout.
+
+\textbf{Diagnostic.} Un artefact connu de certains modèles de la famille Qwen2.5, qui peut occasionnellement produire des caractères hors de la langue attendue. Le contrôle de langue existant ne testait que les proportions de caractères arabes et latins~: un caractère chinois n'étant ni l'un ni l'autre, il n'était tout simplement pas détecté.
+
+\textbf{Solution appliquée.} Ajout d'une détection explicite par plage Unicode (idéogrammes CJK) dans le contrôle de garde-fou et dans le contrôleur de correspondance de langue~: la présence du moindre caractère de cette plage invalide systématiquement la réponse, quelle que soit la langue attendue.
+
+\textbf{Justification.} Un caractère chinois n'est jamais légitime dans ce contexte applicatif (bilingue arabe/français uniquement)~: sa seule présence est un signal fiable et sans ambiguïté d'un artefact du modèle, ce qui justifie une règle de rejet inconditionnelle plutôt qu'un seuil.
+
+\textbf{Vérification.} Les deux cas ayant révélé le défaut ont été rejoués~: la réponse est soit régénérée proprement (retenter avec une directive de langue renforcée), soit remplacée par la réponse de repli si le problème persiste, sans jamais laisser passer de caractères parasites.
+\end{probbox}
+
+\begin{probbox}{Incident -- Contrôle de cohérence de langue trop permissif}
+\textbf{Symptôme observé.} Le garde-fou de langue validait une réponse dès lors qu'elle contenait \emph{un minimum} de caractères reconnaissables (arabe ou latin), sans vérifier que la langue \emph{dominante} correspondait réellement à celle attendue.
+
+\textbf{Diagnostic.} Le test initial (\texttt{ar\_ratio < 0.05 and fr\_ratio < 0.05}) ne rejetait qu'une réponse quasiment vide de tout contenu linguistique reconnaissable -- il ne comparait jamais les deux proportions entre elles, et laissait donc passer une réponse majoritairement dans la mauvaise langue tant qu'elle contenait quelques mots de la langue attendue.
+
+\textbf{Solution appliquée.} Remplacement par un test comparatif~: la proportion de caractères de la langue attendue doit être supérieure ou égale à celle de l'autre langue. En cas d'échec côté synchrone (\texttt{/chat}), une nouvelle génération est retentée avec une directive de langue renforcée ajoutée au prompt~; côté flux (\texttt{/chat/stream}), où un nouvel essai après coup casserait le principe même du flux continu, cette directive renforcée est désormais incluse systématiquement dès le premier essai.
+
+\textbf{Justification.} Un test comparatif entre les deux proportions capture directement la notion de ``langue dominante'', ce qu'un simple seuil minimal ne peut pas faire par construction.
+
+\textbf{Vérification.} Suivi de la proportion de réponses rejetées pour incohérence de langue sur les tests de bout en bout après correctif~: plus aucun cas de réponse majoritairement dans la mauvaise langue observé.
+\end{probbox}
+
+\begin{probbox}{Incident -- Scripts de démarrage annonçant un succès inexistant}
+\textbf{Symptôme observé.} Après un cycle rapide d'arrêt puis de redémarrage de la pile applicative, le script de démarrage affichait un message de succès (``prêt'') alors que le serveur \texttt{llama.cpp} n'avait en réalité jamais réussi à se lier à son port -- l'API fonctionnait dans un état dégradé non détecté, jusqu'à l'échec d'une vraie question utilisateur.
+
+\textbf{Diagnostic.} La boucle de vérification de disponibilité du script s'épuisait silencieusement sans jamais confirmer un succès réel, mais le message de fin de script restait inconditionnel~: le script ne distinguait pas ``la boucle s'est terminée'' de ``la boucle a confirmé un succès''.
+
+\textbf{Solution appliquée.} Réécriture des scripts de démarrage et d'arrêt~: chaque étape vérifie désormais un succès réel avant de continuer (et arrête le script avec le journal correspondant en cas d'échec), la vérification finale interroge le corps JSON du point de santé de l'API plutôt qu'un simple code HTTP 200, et le script d'arrêt attend activement la fin réelle des processus avant de rendre la main.
+
+\textbf{Justification.} Un script d'orchestration qui ne vérifie pas réellement ce qu'il annonce est pire qu'une absence de script~: il crée une fausse confiance qui retarde la détection d'une panne réelle.
+
+\textbf{Vérification.} Cycles d'arrêt puis de redémarrage forcés répétés après correctif~: le script échoue désormais explicitement, avec le journal pertinent, dans les cas où l'ancienne version aurait annoncé un succès trompeur.
+\end{probbox}

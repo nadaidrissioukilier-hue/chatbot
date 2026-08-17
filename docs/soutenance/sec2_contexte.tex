@@ -1,0 +1,13 @@
+\section{Contexte et objectifs}
+
+L'Entraide Nationale gère, sur l'ensemble du territoire marocain, un réseau dense de centres (crèches, centres d'éducation et de formation, centres d'accompagnement pour la protection de l'enfance, établissements de protection sociale, centres pour personnes âgées ou en situation de handicap, etc.), chacun proposant un sous-ensemble de services soumis à des conditions et des documents précis, et rattaché à des programmes institutionnels plus larges. Cette information est par nature fragmentée : elle vit dans des fiches, des foires aux questions et des annuaires hétérogènes, difficiles à interroger rapidement pour un citoyen qui cherche une réponse concrète (``où'', ``sous quelles conditions'', ``avec quels documents'').
+
+L'objectif du projet est de mettre cette information à disposition à travers une interface conversationnelle simple -- un widget de chat intégrable sur un site -- capable de répondre en arabe ou en français, en citant systématiquement une source vérifiable, plutôt que de produire une réponse plausible mais non garantie. Trois exigences ont structuré l'ensemble des choix techniques :
+
+\begin{itemize}
+\item \textbf{Exactitude avant tout.} Le système ne doit jamais inventer une condition, un document, un centre ou un montant : chaque affirmation dans une réponse doit être traçable jusqu'à une donnée réellement présente dans Neo4j ou Qdrant. Quand l'information n'existe pas, le système doit le dire, plutôt que de improviser.
+\item \textbf{Bilinguisme réel, pas une traduction de façade.} Les citoyens posent leurs questions indifféremment en arabe standard, en darija transcrite en caractères arabes, ou en français -- parfois de façon très elliptique. Le système doit reconnaître l'intention et répondre dans la langue de la question, sans mélange.
+\item \textbf{Fonctionnement 100\% local, sur CPU.} Pour des raisons de souveraineté des données (informations sur des populations vulnérables) et de maîtrise des coûts, aucun appel à une API de modèle de langage externe n'est autorisé : l'inférence tourne sur un serveur CPU dédié via llama.cpp. Cette contrainte, plus que toute autre, a orienté les arbitrages de performance décrits dans ce rapport -- chaque génération ancrée sur le contexte prend, selon la charge, de 60 à plus de 300 secondes, ce qui interdit les architectures qui multiplient les appels au modèle sans discernement.
+\end{itemize}
+
+Le présent rapport documente la manière dont ces trois exigences ont été traduites en architecture, puis en code, puis vérifiées -- non pas comme un exercice théorique, mais à travers une série de tests réels menés tout au long du projet, chacun ayant révélé un défaut concret et donné lieu à un correctif vérifié.

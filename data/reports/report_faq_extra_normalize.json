@@ -1,0 +1,27 @@
+{
+  "total_input": 129,
+  "family_A_service": 58,
+  "family_B_institution_raw": 16,
+  "family_B_institution_deduped": 8,
+  "family_B_dropped_duplicates": [
+    "institutions_2_6",
+    "institutions_1_8",
+    "institutions_1_9",
+    "institutions_1_10",
+    "institutions_1_11",
+    "institutions_1_12",
+    "institutions_2_13",
+    "institutions_1_14"
+  ],
+  "family_C_general": 55,
+  "institution_codes_found": [
+    "CAPE",
+    "CAS",
+    "CEF",
+    "CFA",
+    "COAPH",
+    "CRECHE",
+    "EMF",
+    "SAMU_SOCIAL"
+  ]
+}

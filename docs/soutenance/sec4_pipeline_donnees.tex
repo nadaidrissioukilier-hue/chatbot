@@ -1,0 +1,36 @@
+\section{Pipeline de données (ETL et graphe de connaissances)}
+
+En amont du pipeline applicatif décrit ci-dessus, un pipeline de préparation des données transforme les sources brutes (fiches de centres, tableaux de services, foire aux questions, fiches de programmes) en deux bases interrogeables. Ce pipeline est organisé en sept carnets Jupyter exécutés dans un ordre strict~:
+
+\begin{center}
+\begin{tabular}{@{}lp{9.5cm}@{}}
+\toprule
+\textbf{Étape} & \textbf{Rôle} \\
+\midrule
+\texttt{00\_Utils} & Fonctions communes (nettoyage de texte, journalisation, accès aux chemins de données). \\
+\texttt{01\_Normalize} & Nettoyage et normalisation des champs bruts (dates, codes d'institution, libellés de population). \\
+\texttt{02\_Chunk} & Découpage du contenu en fragments indexables, avec un texte concaténé propre à chaque type d'entité (par exemple, pour une FAQ, la question et la réponse concaténées). \\
+\texttt{03\_Match} & Résolution des relations métier implicites, en particulier l'appariement Centre~$\leftrightarrow$~Service par population cible -- étape à l'origine de l'un des incidents les plus significatifs du projet (section~\ref{sec:incidents}). \\
+\texttt{04\_Embed} & Calcul des vecteurs denses (BGE-M3) pour chaque fragment. \\
+\texttt{05\_Neo4j\_Load} & Chargement du graphe métier dans Neo4j. \\
+\texttt{06\_Qdrant\_Index} & Indexation vectorielle hybride dans Qdrant. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Un point de conception important, qui a conditionné la méthode de correction de chaque défaut de données rencontré~: les carnets \texttt{05} et \texttt{06} sont \emph{destructifs et idempotents}. Le carnet \texttt{05} exécute un \texttt{MATCH (n) DETACH DELETE n} avant de recharger l'intégralité du graphe ; le carnet \texttt{06} supprime puis recrée la collection Qdrant avant réindexation. Cette conception garantit qu'un rechargement complet reproduit toujours le même état, mais implique en contrepartie qu'\emph{aucune correction de données ne doit être appliquée directement en base} -- toute correction doit remonter jusqu'aux fichiers intermédiaires (\texttt{data/processed/*.jsonl}) puis être rejouée à travers le pipeline complet, sous peine d'être silencieusement effacée au prochain rechargement. Cette règle a été respectée pour l'ensemble des corrections de données décrites dans ce rapport.
+
+\subsection{Schéma du graphe Neo4j}
+
+Le graphe métier modélise la hiérarchie administrative et l'offre de services~:
+\[
+\text{Région} \xrightarrow{\text{CONTIENT}} \text{Délégation} \xrightarrow{\text{DANS}} \text{Commune} \xrightarrow{\text{ABRITE\_DANS}} \text{Centre}
+\]
+\[
+\text{Centre} \xrightarrow{\text{OFFRE}} \text{Service} \xrightarrow{\text{CIBLE}} \text{PopulationCible}
+\]
+auquel s'ajoutent des noeuds \texttt{Institution} (types d'établissement, par exemple CEF, CPSH, EPS), \texttt{Programme} (les grands programmes institutionnels, avec leur budget) et \texttt{FAQ} (questions-réponses génériques sur la mission de l'Entraide Nationale, avec des relations \texttt{CIBLE}/\texttt{CONCERNE} vers les populations et institutions concernées).
+
+\subsection{Schéma vectoriel Qdrant}
+
+Une collection unique (\texttt{entraide\_mvp}) porte deux vecteurs nommés par point~: un vecteur dense \texttt{dense} (BGE-M3, 1024 dimensions, distance cosinus) et un vecteur creux \texttt{sparse} (TF-IDF haché), ce qui permet une recherche hybride combinant proximité sémantique et correspondance lexicale exacte -- utile notamment pour les identifiants d'institution (CEF, CPSH...) que la seule similarité sémantique retrouve mal. Chaque point porte, dans son \emph{payload}, le type et l'identifiant métier de l'entité (partagé avec Neo4j, ce qui permet de faire le pont entre recherche vectorielle et expansion de graphe), le type de fragment, la population ciblée, les institutions concernées, la région, la langue, et un indicateur de dernier recours pour les établissements de protection sociale.
