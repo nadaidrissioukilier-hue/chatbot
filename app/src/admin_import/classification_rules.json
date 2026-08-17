@@ -1,0 +1,33 @@
+{
+  "$comment": "Règles de classification en familles métier, consommées par classifier.py. Remplace le hardcoding FAMILY_A_REQUIRED/FAMILY_B_REQUIRED de notebooks/etl_lib/faq_dataset.py par une config versionnée et extensible sans toucher au code. Les règles ci-dessous reprennent les 3 familles déjà validées sur le dataset data_faq (129 entrées, voir docs/RESULTS.md) comme point de départ par défaut -- à étendre au fil des imports réels.",
+  "version": 1,
+  "rules": [
+    {
+      "name": "service",
+      "description": "FAQ de type Service (conditions/documents), mêmes champs qu'un Service existant.",
+      "required_fields_any_of": [
+        ["شروط_الاستفادة", "الوثائق_المطلوبة"],
+        ["conditions", "documents_requis"],
+        ["eligibility_conditions", "required_documents"]
+      ],
+      "target_entity_type": "Service"
+    },
+    {
+      "name": "institution_profile",
+      "description": "Fiche d'enrichissement d'une Institution existante (ou nouvelle) -- pas une FAQ.",
+      "required_fields_any_of": [
+        ["الاختصار", "الاسم"],
+        ["acronym", "full_name"],
+        ["sigle", "nom_complet"]
+      ],
+      "target_entity_type": "Institution"
+    },
+    {
+      "name": "generic_faq",
+      "description": "Repli garanti -- toute entrée qui ne matche aucune règle ci-dessus finit ici plutôt que d'être rejetée (voir contrainte 'zéro perte' du plan produit du 2026-08-17). Ne nécessite aucun champ particulier au-delà de question/réponse (déjà garantis par field_mapper.py).",
+      "required_fields_any_of": [],
+      "target_entity_type": "FAQ",
+      "is_fallback": true
+    }
+  ]
+}

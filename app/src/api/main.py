@@ -208,6 +208,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mode admin d'import (squelette de structure, 2026-08-17 — voir
+# app/src/admin_import/). Chaque route renvoie 501 tant que le pipeline
+# n'est pas implémenté ; inclus dès maintenant pour que le routage/l'auth
+# soient déjà en place au moment d'implémenter les handlers.
+from src.api.admin_import_routes import router as admin_import_router  # noqa: E402
+app.include_router(admin_import_router)
+
 llm_client = LlamaCppClient()
 cache = RedisCache()
 session_memory = SessionMemory()

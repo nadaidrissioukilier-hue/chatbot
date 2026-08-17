@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Entraide.ma — Administration</title>
+<!--
+  Squelette de structure (2026-08-17) -- dashboard admin : import de JSON
+  Q/R générique + suivi visuel du pipeline + KPIs. Voir la conversation
+  produit pour le plan complet et frontend/admin/views/ pour chaque écran.
+
+  Pas de build step, vanilla JS -- même choix que frontend/widget/widget.js
+  (léger, cohérent avec le reste du projet). Pas de Shadow DOM ici
+  (contrairement au widget) : c'est une page dédiée, pas un composant
+  embarqué dans un site tiers, donc pas besoin d'isolation CSS.
+-->
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div id="admin-root">
+    <!-- admin.js peuple ce conteneur selon la vue active (login / overview /
+         import-upload / import-preview / import-pipeline / import-history),
+         voir views/*.js. Auth JWT réutilisant POST /admin/login existant. -->
+  </div>
+  <script src="admin.js"></script>
+</body>
+</html>

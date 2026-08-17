@@ -154,3 +154,14 @@ POPULATION_CIBLES = {
     "jeunes": {"ar": "الشباب", "fr": "Jeunes", "priorite": 5},
     "famille": {"ar": "الأسرة", "fr": "Famille", "priorite": 6},
 }
+
+# === Mode admin d'import (app/src/admin_import/, squelette pose 2026-08-17) ===
+IMPORT_MAX_FILE_SIZE_MB = int(os.getenv("IMPORT_MAX_FILE_SIZE_MB", 20))
+IMPORT_JOB_TTL = int(os.getenv("IMPORT_JOB_TTL", 7 * 24 * 3600))  # 7 jours dans Redis
+IMPORT_DEDUP_THRESHOLD = float(os.getenv("IMPORT_DEDUP_THRESHOLD", 0.92))
+IMPORT_FIELD_MAPPING_MIN_CONFIDENCE = float(os.getenv("IMPORT_FIELD_MAPPING_MIN_CONFIDENCE", 0.7))
+# Au-dessus de ce seuil, le dashboard doit afficher une alerte (KPI
+# categorie A du plan produit : "% classification automatique vs fallback
+# generic_faq" -- trop de fallback signale des regles de classification a
+# etendre dans classification_rules.json).
+IMPORT_GENERIC_FAQ_FALLBACK_ALERT_RATIO = float(os.getenv("IMPORT_GENERIC_FAQ_FALLBACK_ALERT_RATIO", 0.10))
