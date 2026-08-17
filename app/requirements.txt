@@ -1,23 +1,28 @@
-fastapi==0.115.*
-uvicorn[standard]==0.32.*
-pydantic==2.*
-pydantic-settings==2.*
-python-dotenv==1.*
-python-multipart==0.0.*
+fastapi==0.141.1
+uvicorn[standard]==0.52.1
+pydantic==2.13.4
+pydantic-settings==2.15.0
+python-dotenv==1.2.2
+python-multipart==0.0.32
 
-httpx==0.27.*
-requests==2.32.*
+httpx==0.28.1
+requests==2.34.2
 
-qdrant-client==1.12.*
-neo4j==5.*
-redis==5.*
+qdrant-client==1.19.0
+neo4j==6.2.0
+redis==8.1.0
 
-sentence-transformers==3.*
-torch==2.*
+sentence-transformers==5.7.0
+torch==2.13.0
 
-prometheus-client==0.21.*
-python-jose[cryptography]==3.3.*
-passlib[bcrypt]==1.7.*
+prometheus-client==0.26.0
+python-jose[cryptography]==3.5.0
+passlib[bcrypt]==1.7.4
 
 # scripts/import_scraped_pages.py uniquement (import manuel de pages sauvegardées)
-beautifulsoup4==4.12.*
+beautifulsoup4==4.15.0
+
+# notebooks/exec_notebook.py (pipeline d'ingestion 00->06) uniquement,
+# pas requis par l'API elle-même
+nbformat==5.11.0
+nbclient==0.11.0
